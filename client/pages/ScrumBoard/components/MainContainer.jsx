@@ -79,7 +79,29 @@ export default function MainContainer({ user, team }) {
 	}
 
 	function handleDragEnd(result) {
-		console.log('end');
+		const { destination, source, draggableId } = result;
+
+		if (
+			destination.droppableId === source.droppableId &&
+			destination.index === source.index
+		)
+			return;
+
+		console.log(draggableId, source, destination);
+		
+		//just for reordering in same category
+		const newTasks = [...tasks[destination.droppableId]];
+
+		const currentTask = newTasks.find((obj) => obj.task_id === draggableId);
+		newTasks.splice(source.index, 1);
+		newTasks.splice(destination.index, 0, currentTask);
+		setTasks((prev) => {
+			return {
+				...prev,
+				[destination.droppableId]: newTasks,
+			};
+		});
+		console.log(newTasks, 'new tasks');
 	}
 
 	// RENDER MAINCONTAINER
