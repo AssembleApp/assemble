@@ -81,6 +81,7 @@ export const loginAction = async ({ request }) => {
 			return { user: response.user };
 		}
 
+    // We don't want the user to see why it failed, but dev's should be able to distinguish which is which
 		if (response.status === 'IncorrectPassword' || response.status === 'UserNotFound') {
 			return { error: 'Username password combination was not valid' };
     }
