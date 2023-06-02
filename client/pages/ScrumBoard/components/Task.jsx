@@ -3,7 +3,7 @@ import { useContext } from 'react';
 import { dragContext } from '../../../context';
 import { Draggable } from 'react-beautiful-dnd';
 
-export default function Task({ task, id, color, index }) {
+export default function Task({ task, id, index }) {
 	// MAKE PATCH REQUEST TO UPDATE TASK STATUS
 
 	const { handleOnDrag, getData } = useContext(dragContext);
@@ -23,7 +23,6 @@ export default function Task({ task, id, color, index }) {
 
 	// const classes = `task ${task.color}`;
 	const classes = 'task';
-	const styles = { backgroundColor: color };
 	// RENDER TASK COMPONENT
 	//
 	return (
@@ -33,7 +32,6 @@ export default function Task({ task, id, color, index }) {
 					id={id}
 					className={classes}
 					ref={provided.innerRef}
-					style={styles}
 					{...provided.dragHandleProps}
 					{...provided.draggableProps}>
 					<button className='delete' onClick={() => deleteTask()}>

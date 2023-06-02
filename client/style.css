@@ -88,7 +88,6 @@ select {
 .column {
   height: 700px;
   width: 200px;
-  overflow: auto;
   padding: 10px;
 }
 
@@ -265,4 +264,9 @@ button.delete:hover {
 
 button.delete.div-delete {
   top: 0 !important;
+}
+
+.droppable-column {
+  height: 100%;
+  overflow: auto;
 }

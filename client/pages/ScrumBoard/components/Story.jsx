@@ -18,11 +18,9 @@ export default function Story({ story }) {
 			});
 	}
 
-	// const classes = `story ${story.color}`;
 	const classes = 'story';
 	const styles = { backgroundColor: story.color };
 
-	//<div className={classes} style={styles}>
 	return (
 		<div className={classes} style={styles}>
 			<button

@@ -1,21 +1,28 @@
 import React from 'react';
 import { Droppable } from 'react-beautiful-dnd';
+import Task from './Task';
 
-function Column({ status, children }) {
+function Column({ status, title, tasks }) {
+	const taskList = tasks?.map((task, index) => {
+		return <Task key={task.id} task={task} id={task.task_id} index={index} />;
+	});
+
 	return (
-		<Droppable droppableId={status}>
-			{(provided) => (
-				<div
-					ref={provided.innerRef}
-					{...provided.droppableProps}
-					className='column'>
-					<h3>In Progress</h3>
-					<hr />
-					{children}
-					{provided.placeholder}
-				</div>
-			)}
-		</Droppable>
+		<div className='column'>
+			<h3>{title}</h3>
+			<hr />
+			<Droppable droppableId={status}>
+				{(provided) => (
+					<div
+						className='droppable-column'
+						ref={provided.innerRef}
+						{...provided.droppableProps}>
+						{taskList}
+						{provided.placeholder}
+					</div>
+				)}
+			</Droppable>
+		</div>
 	);
 }
 
