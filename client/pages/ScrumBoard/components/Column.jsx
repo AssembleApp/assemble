@@ -2,9 +2,17 @@ import React from 'react';
 import { Droppable } from 'react-beautiful-dnd';
 import Task from './Task';
 
-function Column({ status, title, tasks }) {
+function Column({ status, title, tasks, colorCode }) {
 	const taskList = tasks?.map((task, index) => {
-		return <Task key={task.id} task={task} id={task.task_id} index={index} />;
+		return (
+			<Task
+				key={task.id}
+				task={task}
+				id={task.task_id}
+				index={index}
+				color={colorCode[task.story_id]}
+			/>
+		);
 	});
 
 	return (

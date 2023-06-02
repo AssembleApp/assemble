@@ -11,12 +11,21 @@ export default function Scrumboard({ stories, tasks }) {
 		done: 'Done',
 	};
 
-	const columns = Object.keys(statusTitle).map((status) => {
+	const colorCode = {};
+
+	const storiesList = stories.map((story) => {
+		colorCode[story.id] = story.color;
+		return <Story key={story.id} story={story} />;
+	});
+
+	const columns = Object.keys(statusTitle).map((status, i) => {
 		return (
 			<Column
 				status={status}
 				title={statusTitle[status]}
 				tasks={tasks[status]}
+				stories={stories}
+				colorCode={colorCode}
 			/>
 		);
 	});
@@ -27,9 +36,7 @@ export default function Scrumboard({ stories, tasks }) {
 			<div id='stories' className='column'>
 				<h3>Stories</h3>
 				<hr />
-				{stories.map((story) => {
-					return <Story key={story.id} story={story} />;
-				})}
+				{storiesList}
 			</div>
 			{columns.slice(1)}
 		</div>

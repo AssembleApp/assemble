@@ -3,7 +3,7 @@ import { useContext } from 'react';
 import { dragContext } from '../../../context';
 import { Draggable } from 'react-beautiful-dnd';
 
-export default function Task({ task, id, index }) {
+export default function Task({ task, id, index, color }) {
 	// MAKE PATCH REQUEST TO UPDATE TASK STATUS
 
 	const { handleOnDrag, getData } = useContext(dragContext);
@@ -22,7 +22,7 @@ export default function Task({ task, id, index }) {
 	}
 
 	// const classes = `task ${task.color}`;
-	const classes = 'task';
+	const classes = `task ${'c' + color.slice(1)}`;
 	// RENDER TASK COMPONENT
 	//
 	return (

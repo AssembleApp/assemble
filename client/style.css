@@ -133,9 +133,19 @@ hr {
 
 /* Task and Story component colors */
 /* Thistle */
-.r215g188b200 {
-  background-color: rgb(215, 188, 200);
+.c4287f5 {
+  background-color: #4287f5;
 }
+
+.cd96e62 {
+  background-color: #d96e62;
+}
+
+.c708c6c {
+  background-color: #708c6c
+}
+
+
 
 /* Zomp */
 .r98g150b119 {

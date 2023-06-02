@@ -61,6 +61,7 @@ export default function MainContainer({ user, team }) {
 			})
 			.then(({ stories, tasks }) => {
 				setStories(stories);
+				console.log(stories);
 				const tasksList = {};
 				tasksList.backlog = tasks.filter((task) => task.status === 'backlog');
 				tasksList.todo = tasks.filter((task) => task.status === 'todo');
