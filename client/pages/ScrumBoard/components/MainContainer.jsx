@@ -69,6 +69,7 @@ export default function MainContainer({ user, team }) {
 				);
 				tasksList.toVerify = tasks.filter((task) => task.status === 'toVerify');
 				tasksList.done = tasks.filter((task) => task.status === 'done');
+				console.log(tasksList);
 				setTasks(tasksList);
 			})
 			.catch((err) => {
