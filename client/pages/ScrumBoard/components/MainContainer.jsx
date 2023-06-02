@@ -81,27 +81,43 @@ export default function MainContainer({ user, team }) {
 	function handleDragEnd(result) {
 		const { destination, source, draggableId } = result;
 
+		//no change in category or order
 		if (
 			destination.droppableId === source.droppableId &&
 			destination.index === source.index
 		)
 			return;
 
-		console.log(draggableId, source, destination);
-		
-		//just for reordering in same category
-		const newTasks = [...tasks[destination.droppableId]];
+		//create copy of source and destination tasks
+		const sourceTasks = [...tasks[source.droppableId]];
+		const destinationTasks = [...tasks[destination.droppableId]];
+		const currentTask = sourceTasks.find((obj) => obj.task_id === draggableId);
+		//remove current task from source task list
+		sourceTasks.splice(source.index, 1);
 
-		const currentTask = newTasks.find((obj) => obj.task_id === draggableId);
-		newTasks.splice(source.index, 1);
-		newTasks.splice(destination.index, 0, currentTask);
-		setTasks((prev) => {
-			return {
-				...prev,
-				[destination.droppableId]: newTasks,
-			};
-		});
-		console.log(newTasks, 'new tasks');
+		//change in order but not category
+		if (source.droppableId === destination.droppableId) {
+			//reorder tasks in list
+			sourceTasks.splice(destination.index, 0, currentTask);
+			setTasks((prev) => {
+				return {
+					...prev,
+					[source.droppableId]: sourceTasks,
+				};
+			});
+		} else {
+			//change status of task
+			currentTask.status = source.droppableId;
+			//add task to new task list
+			destinationTasks.splice(destination.index, 0, currentTask);
+			setTasks((prev) => {
+				return {
+					...prev,
+					[source.droppableId]: sourceTasks,
+					[destination.droppableId]: destinationTasks,
+				};
+			});
+		}
 	}
 
 	// RENDER MAINCONTAINER
