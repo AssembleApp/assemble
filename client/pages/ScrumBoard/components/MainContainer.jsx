@@ -63,6 +63,8 @@ export default function MainContainer({ user, team }) {
 				setStories(stories);
 				console.log(stories);
 				const tasksList = {};
+				tasks.sort((a, b) => a.order - b.order)
+				console.log(tasks, 'tasks')
 				tasksList.backlog = tasks.filter((task) => task.status === 'backlog');
 				tasksList.todo = tasks.filter((task) => task.status === 'todo');
 				tasksList.inProgress = tasks.filter(
@@ -122,7 +124,15 @@ export default function MainContainer({ user, team }) {
 					'Content-Type': 'application/json',
 				},
 				body: JSON.stringify(newOrder),
-			});
+			})
+				.then((res) => {
+					getData();
+				})
+				.catch((err) => {
+					window.alert(
+						'There was an error reordering tasks. Please try again later.'
+					);
+				});
 		} else {
 			//change status of task
 			currentTask.status = source.droppableId;
