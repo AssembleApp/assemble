@@ -124,6 +124,53 @@ scrumController.updateTask = (req, res, next) => {
 		});
 };
 
+// REORDER TASKS ---------------------------------------------------------------------------------------
+
+scrumController.reorderTasks = (req, res, next) => {
+	const values = [];
+	for (let task of req.body) {
+		values.push(task.id);
+		values.push(task.order);
+	}
+	console.log(values);
+	let cases = '';
+	let count = 1;
+	let params = '';
+
+	req.body.forEach((task) => {
+		cases += `
+		WHEN task_id = $${count} THEN CAST($${count + 1} AS INTEGER)
+		`;
+		count += 2;
+		params += `${count}`;
+	});
+
+	const queryBase = () => {
+		return `
+	UPDATE task SET "order" = CASE
+		${cases}
+		END
+	`;
+	};
+
+	const queryString = queryBase();
+	console.log(queryString, values);
+
+	db.query(queryString, values)
+		.then((data) => {
+			return next();
+		})
+		.catch((err) => {
+			console.log(err);
+			const errorObj = {
+				log: 'scrumController.reorderTasks middleware error',
+				status: 501,
+				message: 'Delete task failed',
+			};
+			return next(errorObj);
+		});
+};
+
 // DELETE TASK -----------------------------------------------------------------------------------------
 scrumController.deleteTask = (req, res, next) => {
 	const id = req.params.id;

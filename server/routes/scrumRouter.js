@@ -33,6 +33,11 @@ scrumRouter.patch('/task', scrumController.updateTask, (req, res) => {
   return res.status(200).end('Updated task');
 })
 
+//reorder tasks
+scrumRouter.patch('/tasks', scrumController.reorderTasks, (req, res) => {
+  return res.status(200).end('Reordered tasks')
+})
+
 // delete task
 scrumRouter.delete('/task/:id', scrumController.deleteTask, (req, res) => {
   //console.log('In scrumRouter having returned from DELETE scrumController.deleteTask middleware');

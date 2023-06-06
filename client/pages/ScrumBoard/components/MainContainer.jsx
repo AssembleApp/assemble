@@ -105,6 +105,24 @@ export default function MainContainer({ user, team }) {
 					[source.droppableId]: sourceTasks,
 				};
 			});
+
+			//need all tasks from current story => sourceTasks
+			console.log(sourceTasks);
+			const newOrder = sourceTasks.map((obj, i) => {
+				return {
+					id: obj.task_id,
+					order: i,
+				};
+			});
+			console.log(newOrder);
+			//PATCH to reorderTasks
+			fetch('/api/tasks', {
+				method: 'PATCH',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify(newOrder),
+			});
 		} else {
 			//change status of task
 			currentTask.status = source.droppableId;
@@ -117,6 +135,7 @@ export default function MainContainer({ user, team }) {
 					[destination.droppableId]: destinationTasks,
 				};
 			});
+			//PATCH to updateTasks
 		}
 	}
 
