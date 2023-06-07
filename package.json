@@ -1,12 +1,14 @@
 {
-  "name": "scratch-project",
+  "name": "assemble",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
     "start": "nodemon ./server/server.js",
     "build": "NODE_ENV=production webpack",
-    "dev": "concurrently \"NODE_ENV=development webpack-dev-server --open --hot\" \"nodemon ./server/server.js\""
+    "frontend": "NODE_ENV=development webpack serve --open --hot",
+    "backend": "nodemon ./server/server.js",
+    "dev": "concurrently \"NODE_ENV=development webpack serve --open --hot\" \"nodemon ./server/server.js\""
   },
   "keywords": [],
   "author": "",
