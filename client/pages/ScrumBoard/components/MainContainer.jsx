@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import Scrumboard from './Scrumboard';
 import Forms from './Forms';
-import { dragContext } from '../../../context';
+import { TasksContext } from '../../../context';
 import { DragDropContext } from 'react-beautiful-dnd';
 import statuses from '../../../utils/task-statuses';
+import reorder from '../../../utils/reorder';
 
 export default function MainContainer({ user, team }) {
 	const [stories, setStories] = useState([]);
@@ -27,13 +28,13 @@ export default function MainContainer({ user, team }) {
 			.then(({ stories, tasks }) => {
 				setStories(stories);
 				const tasksList = {};
-
+				//separating tasks by status and sorting based on order
 				statuses.forEach((status) => {
 					tasksList[status] = tasks
 						.filter((task) => task.status === status)
 						.sort((a, b) => a.order - b.order);
-					console.log(tasksList[status]);
 				});
+				console.log(tasksList);
 				setTasks(tasksList);
 			})
 			.catch((err) => {
@@ -46,8 +47,9 @@ export default function MainContainer({ user, team }) {
 
 		//no change in category or order
 		if (
-			destination.droppableId === source.droppableId &&
-			destination.index === source.index
+			!destination ||
+			(destination.droppableId === source.droppableId &&
+				destination.index === source.index)
 		)
 			return;
 
@@ -62,19 +64,11 @@ export default function MainContainer({ user, team }) {
 		if (source.droppableId === destination.droppableId) {
 			//reorder tasks in list
 			sourceTasks.splice(destination.index, 0, currentTask);
+			//optimistic rendering
 			setTasks((prev) => {
 				return {
 					...prev,
 					[source.droppableId]: sourceTasks,
-				};
-			});
-
-			//need all tasks from current story => sourceTasks
-			console.log(sourceTasks);
-			const newOrder = sourceTasks.map((obj, i) => {
-				return {
-					id: obj.task_id,
-					order: i,
 				};
 			});
 
@@ -84,7 +78,7 @@ export default function MainContainer({ user, team }) {
 				headers: {
 					'Content-Type': 'application/json',
 				},
-				body: JSON.stringify({ tasks: newOrder }),
+				body: JSON.stringify({ tasks: reorder(sourceTasks) }),
 			})
 				.then((res) => {
 					getData();
@@ -99,6 +93,7 @@ export default function MainContainer({ user, team }) {
 			currentTask.status = source.droppableId;
 			//add task to new task list
 			destinationTasks.splice(destination.index, 0, currentTask);
+			//optimistic rendering
 			setTasks((prev) => {
 				return {
 					...prev,
@@ -107,19 +102,13 @@ export default function MainContainer({ user, team }) {
 				};
 			});
 			//PATCH to updateTasks
-			const newOrder = destinationTasks.map((obj, i) => {
-				return {
-					id: obj.task_id,
-					order: i,
-				};
-			});
 			fetch('/api/task', {
 				method: 'PATCH',
 				headers: {
 					'Content-Type': 'application/json',
 				},
 				body: JSON.stringify({
-					tasks: newOrder,
+					tasks: reorder(destinationTasks),
 					task_id: draggableId,
 					status: destination.droppableId,
 				}),
@@ -138,15 +127,17 @@ export default function MainContainer({ user, team }) {
 	// RENDER MAINCONTAINER
 	return (
 		<DragDropContext onDragEnd={handleDragEnd}>
-			<dragContext.Provider
+			<TasksContext.Provider
 				value={{
 					getData,
+					tasks,
+					setTasks,
 				}}>
 				<div className='mainContainer'>
-					<Forms storyList={stories} backlogTasks={tasks.backlog} />
-					<Scrumboard stories={stories} tasks={tasks} />
+					<Forms stories={stories} setStories={setStories} />
+					<Scrumboard stories={stories} />
 				</div>
-			</dragContext.Provider>
+			</TasksContext.Provider>
 		</DragDropContext>
 	);
 }

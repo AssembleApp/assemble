@@ -56,12 +56,12 @@ scrumController.getTasks = (req, res, next) => {
 // ADD TASK -------------------------------------------------------------------------------------------
 scrumController.postTask = (req, res, next) => {
 	//change these values to match database
-	const { taskDesc, taskDiff, taskOwner, story_id, task_id, order } = req.body;
+	const { description, difficulty, name, story_id, task_id, order } = req.body;
 	// console.log('request body', req.body);
 	const values = [
-		taskDesc,
-		taskDiff,
-		taskOwner,
+		description,
+		difficulty,
+		name,
 		story_id,
 		'backlog',
 		task_id,
@@ -91,8 +91,8 @@ scrumController.postTask = (req, res, next) => {
 
 // ADD STORY -----------------------------------------------------------------------------------------
 scrumController.postStory = (req, res, next) => {
-	const { storyDesc, storyColor, team_id } = req.body;
-	const values = [storyDesc, storyColor, team_id];
+	const { description, color, team_id } = req.body;
+	const values = [description, color, team_id];
 	const storyString = `INSERT INTO story (description, color, team_id) VALUES ($1, $2, $3)`;
 
 	db.query(storyString, values)

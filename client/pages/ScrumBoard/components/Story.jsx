@@ -1,9 +1,9 @@
 import React from 'react';
 import { useContext } from 'react';
-import { dragContext } from '../../../context';
+import { TasksContext } from '../../../context';
 
 export default function Story({ story }) {
-	const { getData } = useContext(dragContext);
+	const { getData } = useContext(TasksContext);
 	// MAKE DELTE REQUEST TO DELETE STORY
 	function deleteStory(id) {
 		// console.log('sending deleteStory from Story.jsx');

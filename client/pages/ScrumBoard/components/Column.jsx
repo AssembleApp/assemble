@@ -1,9 +1,12 @@
 import React from 'react';
 import { Droppable } from 'react-beautiful-dnd';
 import Task from './Task';
+import { TasksContext } from '../../../context';
 
-function Column({ status, title, tasks, colorCode }) {
-	const taskList = tasks?.map((task, index) => {
+function Column({ status, title, colorCode }) {
+	const { tasks } = React.useContext(TasksContext);
+
+	const taskList = tasks[status]?.map((task, index) => {
 		return (
 			<Task
 				key={task.id}

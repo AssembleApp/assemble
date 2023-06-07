@@ -2,7 +2,7 @@ import React from 'react';
 import Story from './Story';
 import Column from './Column';
 
-export default function Scrumboard({ stories, tasks }) {
+export default function Scrumboard({ stories }) {
 	const statusTitle = {
 		backlog: 'Backlog',
 		todo: 'To Do',
@@ -23,7 +23,6 @@ export default function Scrumboard({ stories, tasks }) {
 			<Column
 				status={status}
 				title={statusTitle[status]}
-				tasks={tasks[status]}
 				stories={stories}
 				colorCode={colorCode}
 			/>

@@ -1,14 +1,21 @@
 import React from 'react';
 import { useContext } from 'react';
-import { dragContext } from '../../../context';
+import { TasksContext } from '../../../context';
 import { Draggable } from 'react-beautiful-dnd';
 
 export default function Task({ task, id, index, color }) {
 	// MAKE PATCH REQUEST TO UPDATE TASK STATUS
-	const { getData } = useContext(dragContext);
+	const { getData, setTasks } = useContext(TasksContext);
 
 	// MAKE DELTE REQUEST TO DELETE TASK
 	function deleteTask() {
+		//optimistic render
+		setTasks((prev) => {
+			return {
+				...prev,
+				[task.status]: prev[task.status].filter((task) => task.task_id !== id),
+			};
+		});
 		fetch(`/api/task/${id}`, {
 			method: 'DELETE',
 		})
@@ -16,6 +23,9 @@ export default function Task({ task, id, index, color }) {
 				getData();
 			})
 			.catch((err) => {
+				window.alert(
+					'There was an error deleting this task. Please try again later.'
+				);
 				console.log({ err: `Error deleting task: ${err}` });
 			});
 	}
