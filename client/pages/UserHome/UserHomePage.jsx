@@ -174,7 +174,6 @@ function makeTeamArray(userTeamArray) {
   sortedUserTeamArray.sort(compareByTeamId);
 
   return sortedUserTeamArray.map((userTeam) => {
-    console.log(userTeam);
 		return <TeamDisplay userTeamName={userTeam.team_name} userTeamId={userTeam.id} />;
 	});
 }
