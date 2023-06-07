@@ -3,7 +3,7 @@ import React from 'react';
 import { teamContext, dragContext } from '../../../context';
 import { nanoid } from 'nanoid';
 
-export default function Forms({ storyList }) {
+export default function Forms({ storyList, backlogTasks }) {
 	const [taskDesc, setTaskDesc] = useState('');
 	const [taskOwner, setTaskOwner] = useState('');
 	const [taskDiff, setTaskDiff] = useState('');
@@ -27,6 +27,7 @@ export default function Forms({ storyList }) {
 				story_id: taskColor,
 				status: 'backlog',
 				task_id: nanoid(),
+				order: backlogTasks.length + 1,
 			}),
 		})
 			.then(() => {

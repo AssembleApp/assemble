@@ -5,8 +5,7 @@ import { Draggable } from 'react-beautiful-dnd';
 
 export default function Task({ task, id, index, color }) {
 	// MAKE PATCH REQUEST TO UPDATE TASK STATUS
-	console.log(index);
-	const { handleOnDrag, getData } = useContext(dragContext);
+	const { getData } = useContext(dragContext);
 
 	// MAKE DELTE REQUEST TO DELETE TASK
 	function deleteTask() {

@@ -56,13 +56,21 @@ scrumController.getTasks = (req, res, next) => {
 // ADD TASK -------------------------------------------------------------------------------------------
 scrumController.postTask = (req, res, next) => {
 	//change these values to match database
-	const { taskDesc, taskDiff, taskOwner, story_id, task_id } = req.body;
+	const { taskDesc, taskDiff, taskOwner, story_id, task_id, order } = req.body;
 	// console.log('request body', req.body);
-	const values = [taskDesc, taskDiff, taskOwner, story_id, 'backlog', task_id];
+	const values = [
+		taskDesc,
+		taskDiff,
+		taskOwner,
+		story_id,
+		'backlog',
+		task_id,
+		order,
+	];
 	// console.log(values);
 	const queryString = `
-  INSERT INTO task (description, difficulty, name, story_id, status, task_id) 
-  VALUES ($1, $2, $3, $4, $5, $6 )
+  INSERT INTO task (description, difficulty, name, story_id, status, task_id, "order") 
+  VALUES ($1, $2, $3, $4, $5, $6, $7 )
 	RETURNING id`;
 
 	db.query(queryString, values)
@@ -128,16 +136,20 @@ scrumController.updateTask = (req, res, next) => {
 
 scrumController.reorderTasks = (req, res, next) => {
 	const values = [];
-	for (let task of req.body) {
+	const { tasks } = req.body;
+
+	//building values for query
+	for (let task of tasks) {
 		values.push(task.id);
 		values.push(task.order);
 	}
-	console.log(values);
+
 	let cases = '';
 	let count = 1;
 	let params = '';
 
-	req.body.forEach((task) => {
+	//building cases for query string
+	tasks.forEach((task) => {
 		cases += `
 		WHEN task_id = $${count} THEN CAST($${count + 1} AS INTEGER)
 		`;
@@ -145,16 +157,18 @@ scrumController.reorderTasks = (req, res, next) => {
 		params += `${count}`;
 	});
 
+	//inserting cases into query string
 	const queryBase = () => {
 		return `
 	UPDATE task SET "order" = CASE
 		${cases}
+		ELSE ("order")
 		END
 	`;
 	};
 
+	//creating full query string
 	const queryString = queryBase();
-	console.log(queryString, values);
 
 	db.query(queryString, values)
 		.then((data) => {

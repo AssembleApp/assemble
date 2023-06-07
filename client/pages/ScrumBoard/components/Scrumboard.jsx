@@ -18,7 +18,7 @@ export default function Scrumboard({ stories, tasks }) {
 		return <Story key={story.id} story={story} />;
 	});
 
-	const columns = Object.keys(statusTitle).map((status, i) => {
+	const columns = Object.keys(statusTitle).map((status) => {
 		return (
 			<Column
 				status={status}
