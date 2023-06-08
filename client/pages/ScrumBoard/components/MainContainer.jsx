@@ -3,10 +3,10 @@ import Scrumboard from './Scrumboard';
 import Forms from './Forms';
 import { TasksContext } from '../../../context';
 import { DragDropContext } from 'react-beautiful-dnd';
-import statuses from '../../../utils/task-statuses';
+import statuses from '../../../utils/statuses';
 import reorder from '../../../utils/reorder';
 
-export default function MainContainer({ user, team }) {
+export default function MainContainer({ team }) {
 	const [stories, setStories] = useState([]);
 	const [tasks, setTasks] = useState([]);
 
@@ -29,12 +29,12 @@ export default function MainContainer({ user, team }) {
 				setStories(stories);
 				const tasksList = {};
 				//separating tasks by status and sorting based on order
-				statuses.forEach((status) => {
+				Object.keys(statuses).forEach((status) => {
 					tasksList[status] = tasks
 						.filter((task) => task.status === status)
 						.sort((a, b) => a.order - b.order);
 				});
-				console.log(tasksList);
+				// console.log(tasksList);
 				setTasks(tasksList);
 			})
 			.catch((err) => {
@@ -42,10 +42,11 @@ export default function MainContainer({ user, team }) {
 			});
 	}
 
+	//react beautiful dnd dragend handler
 	function handleDragEnd(result) {
 		const { destination, source, draggableId } = result;
 
-		//no change in category or order
+		//task is dropped into undroppable area or same position in column
 		if (
 			!destination ||
 			(destination.droppableId === source.droppableId &&
@@ -127,6 +128,7 @@ export default function MainContainer({ user, team }) {
 	// RENDER MAINCONTAINER
 	return (
 		<DragDropContext onDragEnd={handleDragEnd}>
+			{/* {context to refresh page and optimistic render} */}
 			<TasksContext.Provider
 				value={{
 					getData,

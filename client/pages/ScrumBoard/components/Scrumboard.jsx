@@ -1,16 +1,9 @@
 import React from 'react';
 import Story from './Story';
 import Column from './Column';
+import statuses from '../../../utils/statuses';
 
 export default function Scrumboard({ stories }) {
-	const statusTitle = {
-		backlog: 'Backlog',
-		todo: 'To Do',
-		inProgress: 'In Progress',
-		toVerify: 'To Verify',
-		done: 'Done',
-	};
-
 	const colorCode = {};
 
 	const storiesList = stories.map((story) => {
@@ -18,11 +11,11 @@ export default function Scrumboard({ stories }) {
 		return <Story key={story.id} story={story} />;
 	});
 
-	const columns = Object.keys(statusTitle).map((status) => {
+	const columns = Object.keys(statuses).map((status) => {
 		return (
 			<Column
 				status={status}
-				title={statusTitle[status]}
+				title={statuses[status]}
 				stories={stories}
 				colorCode={colorCode}
 			/>
