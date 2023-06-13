@@ -132,56 +132,52 @@ hr {
 }
 
 /* Task and Story component colors */
+
 /* Thistle */
+.ced7ec8 {
+  background-color: #ed7ec8;
+}
+
+/* Zomp */
+.c708c6c {
+  background-color: #708c6c;
+}
+
+/* Uranian blue */
+.ca7cff2 {
+  background-color: #a7cff2;
+}
+
+/* Atomic tangerine */
+.ce8b168 {
+  background-color: #e8b168;
+}
+
+/* Cool Blue */
 .c4287f5 {
   background-color: #4287f5;
 }
 
+/* Pink */
+.cffc0cb {
+  background-color: #ffc0cb;
+}
+
+/* Dry Rose */
 .cd96e62 {
   background-color: #d96e62;
 }
 
-.c708c6c {
-  background-color: #708c6c
+/* Lilac */
+.cb991db {
+  background-color: #b991db;
 }
 
-
-
-/* Zomp */
-.r98g150b119 {
-  background-color: rgb(98, 150, 119);
+/* Gray */
+.caba8a8 {
+  background-color: #aba8a8;
 }
 
-/* Uranian blue */
-.r163g206b241 {
-  background-color: rgb(163, 206, 241);
-}
-
-/* Atomic tangerine */
-.r242g149b89 {
-  background-color: rgb(242, 149, 89);
-}
-
-/* Vanilla */
-.r232g225b155 {
-  background-color: rgb(232, 225, 155);
-}
-
-.pink {
-  background-color: pink;
-}
-
-.dryrose {
-  background-color: rgb(177, 75, 92);
-}
-
-.lilac {
-  background-color: rgb(186, 149, 198);
-}
-
-.gray {
-  background-color: rgb(171, 168, 168);
-}
 
 .nav-link {
   color: dodgerblue;

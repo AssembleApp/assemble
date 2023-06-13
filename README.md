@@ -7,7 +7,7 @@ Current features include:
 - A team scrum board page where a user can:
   - Create stories to describe the nature of a set of tasks
   - Create tasks corresponding to a story
-  - Drag and drop tasks to update their current status
+  - Drag and drop tasks to update their current status or order
   - Passwords stored and verified using bcrypt
 
 Future features:

@@ -113,10 +113,10 @@ export default function Forms({ stories, setStories }) {
 					<option value='#a7cff2'>Uranian Blue</option>
 					<option value='#e8b168'>Atomic Tangerine</option>
 					<option value='#4287f5'>Cool Blue</option>
-					<option value='#dbabc6'>Pink</option>
+					<option value='#ffc0cb'>Pink</option>
 					<option value='#d96e62'>Dry Rose</option>
 					<option value='#b991db'>Lilac</option>
-					<option value='gray'>Gray</option>
+					<option value='#aba8a8'>Gray</option>
 				</select>
 				<input id='submit-story' type='submit' value='Add Story' />
 			</form>
