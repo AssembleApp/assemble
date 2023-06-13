@@ -1,33 +1,42 @@
 import { useContext, useState } from 'react';
 import React from 'react';
-import { teamContext, dragContext } from '../../../context';
+import { teamContext, TasksContext } from '../../../context';
 import { nanoid } from 'nanoid';
 
-export default function Forms({ storyList }) {
+export default function Forms({ stories, setStories }) {
 	const [taskDesc, setTaskDesc] = useState('');
 	const [taskOwner, setTaskOwner] = useState('');
 	const [taskDiff, setTaskDiff] = useState('');
 	const [taskColor, setTaskColor] = useState('');
 	const [storyDesc, setStoryDesc] = useState('');
 	const [storyColor, setStoryColor] = useState('');
-	const { getData } = useContext(dragContext);
+	const { getData, tasks, setTasks } = useContext(TasksContext);
 	const { team } = useContext(teamContext);
 
 	function addTask(event) {
 		event.preventDefault();
+		const newTask = {
+			description: taskDesc,
+			name: taskOwner,
+			difficulty: taskDiff,
+			story_id: taskColor,
+			order: Number(tasks.backlog.length + 1),
+			status: 'backlog',
+			task_id: nanoid(),
+		};
+
+		setTasks((prev) => {
+			return {
+				...prev,
+				backlog: [...prev.backlog, newTask],
+			};
+		});
 		fetch('/api/task', {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
 			},
-			body: JSON.stringify({
-				taskDesc,
-				taskOwner,
-				taskDiff,
-				story_id: taskColor,
-				status: 'backlog',
-				task_id: nanoid(),
-			}),
+			body: JSON.stringify(newTask),
 		})
 			.then(() => {
 				setTaskDesc('');
@@ -44,16 +53,21 @@ export default function Forms({ storyList }) {
 
 	function addStory(event) {
 		event.preventDefault();
+		const newStory = {
+			description: storyDesc,
+			color: storyColor,
+			team_id: team,
+		};
+		console.log(stories);
+		setStories((prev) => {
+			return [...prev, newStory];
+		});
 		fetch('/api/story', {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
 			},
-			body: JSON.stringify({
-				storyDesc,
-				storyColor,
-				team_id: team,
-			}),
+			body: JSON.stringify(newStory),
 		})
 			.then(() => {
 				setStoryColor('');
@@ -69,7 +83,7 @@ export default function Forms({ storyList }) {
 	// ARRAY OF STORY DESCRIPTIONS
 	const descArr = [];
 	// iterate through storyList
-	for (const story of storyList) {
+	for (const story of stories) {
 		const shortDescription = story.description.slice(0, 20);
 		const optionKey = `desc${story.id}`;
 		descArr.push(
@@ -99,10 +113,10 @@ export default function Forms({ storyList }) {
 					<option value='#a7cff2'>Uranian Blue</option>
 					<option value='#e8b168'>Atomic Tangerine</option>
 					<option value='#4287f5'>Cool Blue</option>
-					<option value='#dbabc6'>Pink</option>
+					<option value='#ffc0cb'>Pink</option>
 					<option value='#d96e62'>Dry Rose</option>
 					<option value='#b991db'>Lilac</option>
-					<option value='gray'>Gray</option>
+					<option value='#aba8a8'>Gray</option>
 				</select>
 				<input id='submit-story' type='submit' value='Add Story' />
 			</form>

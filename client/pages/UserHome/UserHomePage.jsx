@@ -3,7 +3,6 @@ import { userContext, teamContext, pageContext } from '../../context';
 import { useNavigate } from 'react-router-dom';
 import TeamDisplay from './components/TeamDisplay';
 
-
 const UserHomePage = () => {
   const { user, setUser } = useContext(userContext);
   const { team, setTeam } = useContext(teamContext);
@@ -163,18 +162,16 @@ const UserHomePage = () => {
 
 export default UserHomePage;
 
-
 function makeTeamArray(userTeamArray) {
   if (!userTeamArray || userTeamArray.length === 0) {
     return <div>Please create or join a team</div>;
   }
 
-  // In the future, we'll sort this data in the backend. For now, we'll sort it before displaying
-  const sortedUserTeamArray = userTeamArray.slice();
-  sortedUserTeamArray.sort(compareByTeamId);
+	// In the future, we'll sort this data in the backend. For now, we'll sort it before displaying
+	const sortedUserTeamArray = userTeamArray.slice();
+	sortedUserTeamArray.sort(compareByTeamId);
 
 
-  // Have Adam show me uuid, will make keys a combo of team name and uuid
   return sortedUserTeamArray.map((userTeam) => {
     return <TeamDisplay userTeamName={userTeam.team_name} userTeamId={userTeam.id} />;
   });
@@ -182,9 +179,9 @@ function makeTeamArray(userTeamArray) {
 
 // Sorts teams by ascending team Id
 function compareByTeamId(userTeamA, userTeamB) {
-  if (userTeamA.id <= userTeamB.id) {
-    return -1;
-  } else {
-    return 1;
-  }
+	if (userTeamA.id <= userTeamB.id) {
+		return -1;
+	} else {
+		return 1;
+	}
 }
