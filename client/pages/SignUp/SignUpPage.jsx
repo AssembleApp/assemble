@@ -4,14 +4,14 @@ import { userContext, pageContext } from '../../context';
 
 const SignUpPage = () => {
   const navigate = useNavigate();
-  const { user, setUser } = useContext(userContext)
+  const { user, setUser } = useContext(userContext);
   const { lastPage } = useContext(pageContext);
   const data = useActionData();
 
   // Set lastPage to variable that will prevent automatic page jump if page has just loaded
   useEffect(() => {
     lastPage.current = 'JustLoadedSignUp';
-  }, [])
+  }, []);
 
   useEffect(() => {
     // Make sure the user has been set and they didn't just get to this page before navigating to UserHomePage
@@ -24,7 +24,7 @@ const SignUpPage = () => {
   // this useEffect will set the user accordingly and update lastPage to a value that allows navigation away from signup
   useEffect(() => {
     if (data?.user !== undefined) {
-      setUser(data.user)
+      setUser(data.user);
       // Update lastPage to this page on successful submission
       lastPage.current = '/SignUpPage';
     }
@@ -45,11 +45,10 @@ const SignUpPage = () => {
         </label>
         <br></br>
         {data && data.error && <p>{data.error}</p>}
-          <button>Submit</button>
+        <button>Submit</button>
       </Form>
-
     </div>
-  )
+  );
 };
 
 // This action function is called when the Form above is submitted (see router setup in App.jsx).
@@ -83,6 +82,6 @@ export const signupAction = async ({ request }) => {
   } 
   // If the response wasn't 200, let the user know they need to try again later
   return { error: 'The server was unresponsive. Please try again later'};
-}
+};
 
 export default SignUpPage;

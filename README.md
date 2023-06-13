@@ -1,5 +1,5 @@
 Could your team use a tool to help visualize the tasks they're given and track their progress?
-Enter Scrumify! The new virtual scrumboard that all developers will want!
+Enter Assemble! The new virtual scrumboard that all developers will want!
 
 Current features include: 
 - User sign-up and login

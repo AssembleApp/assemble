@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { createBrowserRouter, createRoutesFromElements, RouterProvider, Route } from "react-router-dom";
+import { createBrowserRouter, createRoutesFromElements, RouterProvider, Route } from 'react-router-dom';
 import RootLayout from './layouts/RootLayout';
 import LoginPage, { loginAction } from './pages/Login/LoginPage';
 import SignUpPage, { signupAction } from './pages/SignUp/SignUpPage';
@@ -27,7 +27,7 @@ const router = createBrowserRouter(
         element={<ScrumBoard key='ScrumBoardPage' />} />
     </Route>
   )
-)
+);
 
 const App = () => {
 
@@ -42,10 +42,10 @@ const App = () => {
       <teamContext.Provider value={{ team, setTeam }}>
         <pageContext.Provider value={{lastPage}}>
           <RouterProvider router={router} />
-          </pageContext.Provider>
-       </teamContext.Provider>
-     </userContext.Provider>
-  )
-}
+        </pageContext.Provider>
+      </teamContext.Provider>
+    </userContext.Provider>
+  );
+};
 
 export default App;

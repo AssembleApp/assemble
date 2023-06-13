@@ -9,9 +9,9 @@ userRouter.post('/login',
   userController.verifyUser,
   userController.getTeams,
   (req, res) => {
-	// console.log('login working');
-	res.status(200).json(res.locals);
-})
+    // console.log('login working');
+    res.status(200).json(res.locals);
+  });
 
 //user signup
 userRouter.post('/signup',
@@ -19,8 +19,8 @@ userRouter.post('/signup',
   userController.createUser,
   (req, res) => {
   // console.log('signup working');
-  res.status(200).json(res.locals);
-})
+    res.status(200).json(res.locals);
+  });
 
 //Creates a new team and adds a user to it
 userRouter.post('/create-team',
