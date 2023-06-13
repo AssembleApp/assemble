@@ -7,11 +7,11 @@ const ScrumBoardPage = () => {
   const { user } = useContext(userContext);
   const { team } = useContext(teamContext);
   const { lastPage } = useContext(pageContext);
-  const [teamName, setTeamName] = useState(findTeamName(user, team))
+  const [teamName, setTeamName] = useState(findTeamName(user, team));
 
   useEffect(() => {
     lastPage.current = '/ScrumBoardPage';
-	}, []);
+  }, []);
 
   return (
     <>
@@ -20,7 +20,7 @@ const ScrumBoardPage = () => {
       </header>
       <MainContainer user={ user } team={ team } />
     </>
-  )
+  );
 };
 
 export default ScrumBoardPage;
