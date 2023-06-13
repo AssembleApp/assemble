@@ -1,13 +1,17 @@
 {
   "root": true,
-  "ignorePatterns": ["**/test", "**/__tests__"],
   "env": {
-    "node": true,
     "browser": true,
-    "es2021": true
+    "es2021": true,
+    "node": true
   },
-  "plugins": ["react"],
-  "extends": ["eslint:recommended", "plugin:react/recommended"],
+  "plugins": ["import", "react", "jsx-a11y"],
+  "extends": [
+    "eslint:recommended",
+    "plugin:import/errors",
+    "plugin:react/recommended",
+    "plugin:jsx-a11y/recommended"
+  ],
   "parserOptions": {
     "sourceType": "module",
     "ecmaFeatures": {
@@ -20,11 +24,14 @@
     "no-case-declarations": "off",
     "prefer-const": "warn",
     "quotes": ["warn", "single"],
+    "react/prefer-stateless-function": "off",
     "react/prop-types": "off",
+    "react/jsx-key": "warn",
     "semi": ["warn", "always"],
     "space-infix-ops": "warn"
   },
   "settings": {
-    "react": { "version": "detect"}
+    "react": { "version": "detect"},
+    "import/resolver": "webpack"
   }
-} 
+}
