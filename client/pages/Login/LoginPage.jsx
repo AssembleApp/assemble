@@ -32,7 +32,7 @@ const LoginPage = () => {
 
   return (
     <div className='login-container'>
-      <h1>WELCOME TO ASSEMBLE</h1>
+      <h1>WELCOME</h1>
       <h2>Please Log In</h2>
       <br></br>
       <Form method='post' action='/' className='login-form'>

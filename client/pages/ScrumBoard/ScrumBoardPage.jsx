@@ -15,7 +15,7 @@ const ScrumBoardPage = () => {
 
   return (
     <>
-      <h2>Assemble Board for {teamName}</h2>
+      <h2 id='boardTitle'>Team: {teamName}</h2>
       <MainContainer user={ user } team={ team } />
     </>
   );
