@@ -37,22 +37,20 @@ const LoginPage = () => {
       <br></br>
       <Form method='post' action='/' className='login-form'>
         <label>
-          <span>Username</span>
+          Username
           <input type='username' name='username' required />
         </label>
-        <br></br>
         <label>
-          <span>Password</span>
+          Password
           <input type='password' name='password' required />
         </label>
         {data && data.error && <p>{data.error}</p>}
-        <br></br>
         <button>Login</button>
       </Form>
       <div id='noAccount'>
-        <br></br>
+        <br/>
         <p>No account?</p>
-        <Link to='/SignUpPage'> Sign up!</Link>
+        <Link to='/SignUpPage'>Sign up!</Link>
       </div>
     </div>
   );

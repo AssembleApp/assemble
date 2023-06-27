@@ -10,6 +10,7 @@ const RootLayout = () => {
   return (
     <div className="root-layout">
       <header>
+        <h1>Assemble</h1>
         {formatNavBar(locationURL, lastPage, setUser)}
       </header>
       <main>
@@ -27,14 +28,14 @@ const formatNavBar = (locationURL, lastPage, setUser) => {
   case '/': {
     return (
       <nav id='main-nav'>
-        <NavLink to='/SignUpPage' className='nav-link' > Sign-up Page </NavLink>
+        {/* <NavLink to='/SignUpPage' className='nav-link' > Sign-up Page </NavLink> */}
       </nav>
     );
   }
   case '/SignUpPage': {
     return (
       <nav id='main-nav'>
-        <NavLink to='/' className='nav-link' > Login Page </NavLink>
+        {/* <NavLink to='/' className='nav-link' > Login Page </NavLink> */}
       </nav>
     );
   }

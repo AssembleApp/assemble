@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from 'react';
-import { useNavigate, Form, useActionData } from 'react-router-dom';
+import { useNavigate, Form, useActionData, Link } from 'react-router-dom';
 import { userContext, pageContext } from '../../context';
 
 const SignUpPage = () => {
@@ -47,6 +47,8 @@ const SignUpPage = () => {
         {data && data.error && <p>{data.error}</p>}
         <button>Submit</button>
       </Form>
+      <br/>
+      <Link to='/'>Back to Login</Link>
     </div>
   );
 };
