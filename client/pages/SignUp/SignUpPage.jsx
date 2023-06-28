@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from 'react';
-import { useNavigate, Form, useActionData } from 'react-router-dom';
+import { useNavigate, Form, useActionData, Link } from 'react-router-dom';
 import { userContext, pageContext } from '../../context';
 
 const SignUpPage = () => {
@@ -38,15 +38,15 @@ const SignUpPage = () => {
           <span>New Username</span>
           <input type="username" name="username" required />
         </label>
-        <br></br>
         <label>
           <span>New Password</span>
           <input type="password" name="password" required />
         </label>
-        <br></br>
         {data && data.error && <p>{data.error}</p>}
         <button>Submit</button>
       </Form>
+      <br/>
+      <Link to='/'>Back to Login</Link>
     </div>
   );
 };
